@@ -1,19 +1,30 @@
 
 class Tictactoe:
 
-    def createBoard():
-        #todo: create a 3 by 3 board
+    def __init__(self, playerone, playertwo):
+        self.playerone = playerone
+        self.playertwo = playertwo
+
+    def newBoard():
+        # creates new board
+        
+    def renderBoard():
+        #todo: prints current state of board
         pass
 
-    def createPlayers():
-        #todo: create player 1 and player 2
+    def getMove():
+        #todo: get inputfor current player's move
+        pass
+
+    def makeMove():
+        #todo: code the current player's move
         pass
 
     def getWinner():
         #todo write win conditions
         '''if player one marks 3 in a row, player one wins, end game
         if player two marks 3 in a row, player 2 wins, end game
-        else if no player marks 3 in a row, it is a tie, end game'''
+        '''
         pass
 
     def resetButton():
@@ -22,4 +33,8 @@ class Tictactoe:
 
     def runGame():
         #todo: write code that starts the game.
+        pass
+
+    def fullBoard():
+        #todo: write code that checks the current state of the board
         pass
