@@ -7,10 +7,12 @@ class Tictactoe:
 
     def newBoard():
         # creates new board
-        
+        pass
+
     def renderBoard():
         #todo: prints current state of board
         pass
+
 
     def getMove():
         #todo: get inputfor current player's move
@@ -36,5 +38,7 @@ class Tictactoe:
         pass
 
     def fullBoard():
-        #todo: write code that checks the current state of the board
+        #todo: write code that checks if board is full
         pass
+
+    
