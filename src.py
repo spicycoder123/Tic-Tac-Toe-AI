@@ -35,8 +35,16 @@ class Tictactoe:
 
 
     def getMove(self):
-        #todo: get inputfor current player's move
-        pass
+        print("Coordinates must range from 0 to 2, 0 corresponding to the first row/column, onwards")
+        xcoor = int(input("What is your x coordinate?"))
+        ycoor = int(input("What is your y coordinate?"))
+        
+        if xcoor and ycoor not in range(0,3):
+            print("Coordinates must be between 0 and 2")
+
+
+        return f"({xcoor},{ycoor})"
+
 
     def makeMove(self):
         #todo: code the current player's move
@@ -64,7 +72,7 @@ class Tictactoe:
 
 def main():
     test = Tictactoe("playerone", "playertwo")
-    test.renderBoard()
+    print(test.getMove())
 
 if __name__ == '__main__':
     main()
