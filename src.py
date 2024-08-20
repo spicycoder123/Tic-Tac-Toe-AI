@@ -1,29 +1,27 @@
 
+
+
 class Tictactoe:
 
-    def __init__(self, playerone, playertwo,):
+    def __init__(self,playerone,playertwo):
         self.playerone = playerone
         self.playertwo = playertwo
+        
+        
         
         
 
     def newBoard(self):
         # creates new board
-        return [[None, None, None],
+        self.board = [[None, None, None],
                  [None, None, None],
                  [None, None, None]
                  ]
         
-        
-        
-        
-
 
     def renderBoard(self):
-        board = self.newBoard()
-        
         # Prints current state of the board
-        for row in board:
+        for row in self.board:
             print("|", end="")
             for cell in row:
                 if cell is None:
@@ -39,16 +37,22 @@ class Tictactoe:
         xcoor = int(input("What is your x coordinate?"))
         ycoor = int(input("What is your y coordinate?"))
         
-        if xcoor and ycoor not in range(0,3):
+        if xcoor not in {0,1,2} or ycoor not in {0,1,2}:
             print("Coordinates must be between 0 and 2")
 
-
-        return f"({xcoor},{ycoor})"
+        
+        return xcoor,ycoor
 
 
     def makeMove(self):
-        #todo: code the current player's move
-        pass
+        #todo: code to alternate between players
+        marker = "X"
+        
+        xcoor,ycoor = self.getMove()
+
+        #makesmove
+        self.board[xcoor][ycoor] = marker
+        
 
     def getWinner(self):
         #todo write win conditions
@@ -62,8 +66,10 @@ class Tictactoe:
         pass
 
     def runGame(self):
-        #todo: write code that starts the game.
-        pass
+        test = Tictactoe("playerone", "playertwo")
+        print(test.newBoard())
+        print(test.makeMove())
+        print(test.renderBoard())
 
     def isBoardFull(self):
         #todo: write code that checks if board is full
@@ -72,7 +78,7 @@ class Tictactoe:
 
 def main():
     test = Tictactoe("playerone", "playertwo")
-    print(test.getMove())
+    print(test.runGame())
 
 if __name__ == '__main__':
     main()
