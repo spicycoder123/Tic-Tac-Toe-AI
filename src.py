@@ -1,8 +1,8 @@
 class Tictactoe:
 
-    def __init__(self,playerone,playertwo):
-        self.playerone = playerone
-        self.playertwo = playertwo
+    def __init__(self):
+        self.current_player = "X"
+        self.players = ["X", "O"]
         self.made_moves = []
         
         
@@ -33,45 +33,34 @@ class Tictactoe:
 
 
     def getMove(self):
-        print("Coordinates must range from 0 to 2, 0 corresponding to the first row/column, onwards")
-        xcoor = int(input("What is your x coordinate?:"))
-        ycoor = int(input("What is your y coordinate?:"))
+        while True:
+            try:
+                print("Coordinates must range from 0 to 2, 0 corresponding to the first row/column, onwards")
+                xcoor = int(input("What is your x coordinate?:"))
+                ycoor = int(input("What is your y coordinate?:"))
         
-        if xcoor not in {0,1,2} or ycoor not in {0,1,2}:
-            print("Coordinates must be between 0 and 2")
-            
-        
-        return xcoor,ycoor
+                if xcoor in {0,1,2} or ycoor in {0,1,2}:
+                    if (xcoor,ycoor) in self.made_moves:
+                        print(f"The position at {xcoor,ycoor} is already full, please try again")
+                    else:
+                        return xcoor, ycoor
+                    
+                else:
+                    print("Coordinates must be between 0 and 2.")
+            except ValueError:
+                print("Invalid input, please only enter integers.")
+                    
 
 
     def makeMove(self):
-
-        marker = "O"
-        
         xcoor,ycoor = self.getMove()
+        self.board[xcoor][ycoor] = self.current_player
+        self.made_moves.append((xcoor,ycoor))
+        self.switchPlayer()
 
-        
-        
-
-        #if first move, make the move
-        if len(self.made_moves)== 0:
-            self.board[xcoor][ycoor] = marker
-            self.made_moves.append((xcoor,ycoor))
-        
-        
-        #for all other moves, check to see if the position is filled
-        else:
-            if (xcoor,ycoor) in self.made_moves:
-                print(f"The position at {xcoor,ycoor} is already full, please try again.")
-            else:
-                self.board[xcoor][ycoor] = marker
-                self.made_moves.append((xcoor,ycoor))
-
-        return
-            
-
-
-
+    #ternary operator that alternates between players
+    def switchPlayer(self):
+        self.current_player = "O" if self.current_player == "X" else "X"
 
     def getWinner(self):
         #todo write win conditions
@@ -83,24 +72,22 @@ class Tictactoe:
     def resetButton(self):
         #todo: create a reset button that clears the board.
         pass
-
-    def runGame(self):
-        test = Tictactoe("playerone", "playertwo")
-        print(test.newBoard())
-        for i in range(9):
-            print(test.makeMove())
-            print(test.renderBoard())
-        return (f"Game Over, it is a draw")
-        
     
-
     def isBoardFull(self):
         #todo: write code that checks if board is full
         pass
 
+    def runGame(self):
+        test = Tictactoe()
+        test.newBoard()
+        for i in range(9):
+            test.makeMove()
+            test.renderBoard()
+        return (f"Game Over, it is a draw")
+        
 
 def main():
-    test = Tictactoe("playerone", "playertwo",)
+    test = Tictactoe()
     print(test.runGame())
 
 if __name__ == '__main__':
