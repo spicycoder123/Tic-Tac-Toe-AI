@@ -53,37 +53,60 @@ class Tictactoe:
 
 
     def makeMove(self):
-        xcoor,ycoor = self.getMove()
+        xcoor, ycoor = self.getMove()
         self.board[xcoor][ycoor] = self.current_player
-        self.made_moves.append((xcoor,ycoor))
+        self.made_moves.append((xcoor, ycoor))
+        if self.getWinner():  # Check for a winner after every move
+            self.renderBoard()
+            print(f"Game Over! Player {self.current_player} wins!")
+            return True
         self.switchPlayer()
+        return False
 
     #ternary operator that alternates between players
     def switchPlayer(self):
         self.current_player = "O" if self.current_player == "X" else "X"
 
     def getWinner(self):
-        #todo write win conditions
-        '''if player one marks 3 in a row, player one wins, end game
-        if player two marks 3 in a row, player 2 wins, end game
-        '''
-        pass
+        # Define winning combinations
+        winning_combinations = [
+            # Rows
+            [(0, 0), (0, 1), (0, 2)],
+            [(1, 0), (1, 1), (1, 2)],
+            [(2, 0), (2, 1), (2, 2)],
+            # Columns
+            [(0, 0), (1, 0), (2, 0)],
+            [(0, 1), (1, 1), (2, 1)],
+            [(0, 2), (1, 2), (2, 2)],
+            # Diagonals
+            [(0, 0), (1, 1), (2, 2)],
+            [(0, 2), (1, 1), (2, 0)],
+        ]
+
+        # Check each winning combination
+        for combination in winning_combinations:
+            if all(self.board[x][y] == self.current_player for x, y in combination):
+                return True
+        
+        return False
 
     def resetButton(self):
         #todo: create a reset button that clears the board.
         pass
     
     def isBoardFull(self):
-        #todo: write code that checks if board is full
-        pass
+        return len(self.made_moves) == 9
+
 
     def runGame(self):
-        test = Tictactoe()
-        test.newBoard()
+        self.newBoard()  # Initialize the board
         for i in range(9):
-            test.makeMove()
-            test.renderBoard()
-        return (f"Game Over, it is a draw")
+            if self.makeMove():  # Check if the game was won
+                return  # Stop running if there's a winner
+            self.renderBoard()
+            if self.isBoardFull():
+                print("Game Over, it is a draw!")
+                return
         
 
 def main():
